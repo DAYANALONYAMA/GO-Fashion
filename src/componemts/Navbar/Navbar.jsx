@@ -71,8 +71,8 @@ const Navbar = () => {
             <span>0</span>
           </div>
         </div>
+        {open && <Cart />}
       </div>
-      {open && <Cart />}
     </div>
   );
 };
