@@ -1,48 +1,14 @@
-import React from "react";
+// import React, { useEffect, useState } from "react";
 import Card from "../Card/Card";
 import "./FeaturedProducts.scss";
-import useFetch from "react";
+import useFetch from "../../hooks/useFetch";
+import axios from "axios";
 
 const FeaturedProducts = ({ type }) => {
-  const data = [
-    {
-      id: 1,
-      img: "https://res.cloudinary.com/dhm9nicld/image/upload/v1681151577/robe-enfant-fille-a-festons_pma9fg.jpg",
-      img2: "https://res.cloudinary.com/dhm9nicld/image/upload/v1681151172/monnalisa-robe-capri-en-coton_wlzype.jpg",
-      title: "Robe petite fille",
-      isNew: true,
-      oldPrice: 19,
-      price: 12,
-    },
-    {
-      id: 2,
-      img: "https://res.cloudinary.com/dhm9nicld/image/upload/v1681151172/monnalisa-robe-capri-en-coton_wlzype.jpg",
-      img2: "https://res.cloudinary.com/dhm9nicld/image/upload/v1681151577/robe-enfant-fille-a-festons_pma9fg.jpg",
-      title: "T-shirt",
-      isNew: true,
-      oldPrice: 19,
-      price: 12,
-    },
-    {
-      id: 3,
-      img: "https://res.cloudinary.com/dhm9nicld/image/upload/v1681151554/4336701D_ujk4mx.webp",
-      img2: "https://res.cloudinary.com/dhm9nicld/image/upload/v1681151577/robe-enfant-fille-a-festons_pma9fg.jpg",
-      title: "T-shirt",
-      isNew: false,
-      oldPrice: 19,
-      price: 12,
-    },
-
-    {
-      id: 4,
-      img: "https://res.cloudinary.com/dhm9nicld/image/upload/v1681151392/t%C3%A9l%C3%A9chargement_2_ys871o.jpg",
-      img2: "https://res.cloudinary.com/dhm9nicld/image/upload/v1681151529/61K_9L90gzL._AC_UL320__aiyjuw.jpg",
-      title: "T-shirt",
-      isNew: false,
-      oldPrice: 19,
-      price: 12,
-    },
-  ];
+  const { data, loading, error } = useFetch(
+    `/products?populate?filters[type][$eq]=${type}`
+  );
+  console.log(data);
 
   return (
     <div className="featuredProducts">
@@ -55,9 +21,11 @@ const FeaturedProducts = ({ type }) => {
         </p>
       </div>
       <div className="bottom">
-        {data.map((item) => (
-          <Card item={item} key={item.id} />
-        ))}
+        {error
+          ? "loading"
+          : loading
+          ? "loading"
+          : data?.map((item) => <Card item={item} key={item.id} />)}
       </div>
     </div>
   );

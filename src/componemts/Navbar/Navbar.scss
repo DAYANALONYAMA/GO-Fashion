@@ -12,6 +12,12 @@
       align-items: center;
       font-size: 18px;
     }
+    .item :hover {
+      color: #ff782d;
+    }
+    .item :active {
+      color: #ff782d;
+    }
 
     .left {
       display: flex;
