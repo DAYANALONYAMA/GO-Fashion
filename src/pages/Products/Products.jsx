@@ -12,9 +12,23 @@ const Products = () => {
   const [selectedSubCats, setSelectedSubCats] = useState([]);
 
   const { data, loading, error } = useFetch(
-    `/sub-categories?[filters][id][$eq]=${catId}`
+    `/sub-categories?populate=*&filters[categories][id]=${catId}`
+    // `/sub-categories?[filters][id][$eq]=${catId}`
   );
+
   console.log(data);
+
+  const handleChange = (item) => {
+    const selectedSubCatsTampon = selectedSubCats;
+    const valueIndex = selectedSubCats.findIndex(({ id }) => id === item.id);
+    if (valueIndex < 0) selectedSubCatsTampon.push(item);
+    else {
+      selectedSubCatsTampon.slice(valueIndex, 1);
+    }
+
+    console.log({ selectedSubCatsTampon });
+    setSelectedSubCats(selectedSubCatsTampon);
+  };
 
   return (
     <div className="products">
@@ -25,38 +39,25 @@ const Products = () => {
             <div className="inputItem" key={item.id}>
               <input
                 type="checkbox"
-                id={item.id}
-                value={item.id}
-                // onChange={handleChange}
+                id={item?.id}
+                value={item?.id}
+                onChange={() => {
+                  handleChange(item);
+                }}
               />
-              <label htmlFor={item.id}>{item.attributes.title}</label>
+              <label htmlFor={item?.id}>{item?.attributes?.title}</label>
             </div>
           ))}
 
-          <div className="inputItem">
-            <input type="checkbox" id="1" value={1} />
-            <label htmlFor="1">Chaussure</label>
-          </div>
-
-          <div className="inputItem">
-            <input type="checkbox" id="2" value={2} />
-            <label htmlFor="1">Pantalon</label>
-          </div>
-
-          <div className="inputItem">
-            <input type="checkbox" id="3" value={3} />
-            <label htmlFor="1">Sac</label>
-          </div>
-
-          <div className="inputItem">
+          {/* <div className="inputItem">
             <input type="checkbox" id="4" value={4} />
             <label htmlFor="1">T-shirt</label>
           </div>
 
           <div className="inputItem">
             <input type="checkbox" id="4" value={4} />
-            <label htmlFor="1">Accessoires</label>
-          </div>
+            <label htmlFor="1">Chemise</label>
+          </div> */}
         </div>
 
         <div className="filterItem">
