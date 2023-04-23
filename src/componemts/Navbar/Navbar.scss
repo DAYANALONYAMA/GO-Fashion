@@ -1,13 +1,29 @@
 .navbar {
-  height: 80px;
+  // visibility: hidden;
+  position: fixed;
+  z-index: 9;
+  width: 100%;
+  background-color: #111464;
 
   .wrapper {
-    padding: 10px 30px;
+    height: 80px;
     display: flex;
+    padding: 0 5%;
     align-items: center;
     justify-content: space-between;
 
+    .Toggle {
+      visibility: hidden;
+      color: aliceblue;
+      cursor: pointer;
+    }
+
+    .iconClose {
+      visibility: hidden;
+    }
     .item {
+      color: aliceblue;
+      font-weight: 500;
       display: flex;
       align-items: center;
       font-size: 18px;
@@ -24,12 +40,19 @@
       align-items: center;
       gap: 25px;
     }
-    .center {
-      font-size: 30px;
-      letter-spacing: 2px;
-      justify-content: center;
-      align-items: center;
-      color: #111464;
+
+    .logo {
+      position: relative;
+      margin-right: 50px;
+      .img {
+        position: absolute;
+        top: 50%;
+
+        transform: translateY(-50%);
+        width: 120px;
+        height: 60px;
+        object-fit: contain;
+      }
     }
     .right {
       display: flex;
@@ -63,6 +86,150 @@
       }
     }
   }
+}
+
+// nav {
+//   width: 100%;
+//   display: flex;
+
+//   .show-menu {
+//     bottom: 0;
+//   }
+
+//   .nav__list {
+//     display: grid;
+//     grid-template-columns: repeat(3, 1fr);
+//     gap: 2rem;
+//   }
+//   .nav__icon {
+//     font-size: 1.2rem;
+//   }
+//   .nav__close {
+//     position: absolute;
+//     right: 1.3rem;
+//     bottom: 0.5rem;
+//     font-size: 1.5rem;
+//     cursor: pointer;
+//     color: var(--title-color);
+//   }
+
+//   .nav__close:hover {
+//     color: var(--title-color-dark);
+//   }
+
+//   .nav__toggle {
+//     font-size: 1.1rem;
+//     cursor: pointer;
+//   }
+
+//   .nav__icon,
+//   .nav__close,
+//   .nav__toggle {
+//     display: block;
+//   }
+
+//   .right {
+//       display: flex;
+//       align-items: center;
+//       gap: 25px;
+
+//       .icons {
+//         display: flex;
+//         gap: 15px;
+//         color: #777;
+//         cursor: pointer;
+
+//         .cartIcon {
+//           position: relative;
+
+//           span {
+//             font-size: 12px;
+//             width: 20px;
+//             height: 20px;
+//             border-radius: 50%;
+//             background-color: #2879fe;
+//             color: white;
+//             position: absolute;
+//             right: -10px;
+//             top: -10px;
+//             display: flex;
+//             align-items: center;
+//             justify-content: center;
+//           }
+//         }
+//       }
+//     }
+// }
+
+@media (max-width: 991px) {
+  .navbar {
+    .wrapper {
+      .left {
+        position: fixed;
+        top: 0;
+        left: -100vh;
+
+        background-color: aliceblue;
+        width: 80vw;
+        height: 100vh;
+
+        display: flex;
+        flex-direction: column;
+
+        transition: 0.3s ease-in-out;
+
+        z-index: 10;
+      }
+
+      .filter {
+        position: fixed;
+        top: 0;
+        left: 0;
+        background-color: rgba(0 0 0 / 0.8);
+        width: 100%;
+        height: 100vh;
+        visibility: hidden;
+        opacity: 0;
+
+        z-index: 8;
+
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+
+        .iconClose {
+          font-size: 30px;
+          margin-right: calc(20vw / 2 - 18px);
+          color: aliceblue;
+          opacity: 0.6;
+          cursor: pointer;
+
+          transition: 0.3s ease-in-out;
+        }
+        .Toggle {
+          color: aliceblue;
+          cursor: pointer;
+        }
+        .iconClose:hover {
+          opacity: 1;
+        }
+      }
+    }
+  }
+  .ActiveMenu .left {
+    left: 0 !important;
+  }
+
+  .ActiveMenu .filter {
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+}
+
+@media (max-width: 1024px) {
+}
+
+@media (max-width: 771px) {
 }
 
 // @media screen and (max-width: 992px) {

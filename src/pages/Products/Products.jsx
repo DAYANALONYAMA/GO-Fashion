@@ -3,32 +3,36 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 import List from "../../componemts/List/List";
 import useFetch from "../../hooks/useFetch";
+import { useDispatch } from "react-redux";
+import { addId } from "../../redux/idReducer";
 import "./Products.scss";
 
 const Products = () => {
-  const catId = parseInt(useParams().id);
+  // const catId = parseInt(useParams().id);
+  const dispatch = useDispatch();
   const [maxPrice, setMaxPrice] = useState(1000);
   const [sort, setSort] = useState(null);
   const [selectedSubCats, setSelectedSubCats] = useState([]);
 
   const { data, loading, error } = useFetch(
-    `/sub-categories?populate=*&filters[categories][id]=${catId}`
-    // `/sub-categories?[filters][id][$eq]=${catId}`
+    "/sub-categories"
+    // `/sub-categories?[filters][id][$eq]=${dispatch(addId)}`
   );
 
-  console.log(data);
-
   const handleChange = (item) => {
-    const selectedSubCatsTampon = selectedSubCats;
-    const valueIndex = selectedSubCats.findIndex(({ id }) => id === item.id);
-    if (valueIndex < 0) selectedSubCatsTampon.push(item);
-    else {
-      selectedSubCatsTampon.slice(valueIndex, 1);
-    }
-
-    console.log({ selectedSubCatsTampon });
-    setSelectedSubCats(selectedSubCatsTampon);
+    dispatch(addId(item.id));
   };
+
+  // const handleChange = (e) => {
+  //   const value = e.target.value;
+  //   const isChecked = e.target.checked;
+
+  //   setSelectedSubCats(
+  //     isChecked
+  //       ? [...selectedSubCats, value]
+  //       : selectedSubCats.filter((item) => item !== value)
+  //   );
+  // };
 
   return (
     <div className="products">
@@ -40,10 +44,11 @@ const Products = () => {
               <input
                 type="checkbox"
                 id={item?.id}
-                value={item?.id}
+                valueIndex={item?.id}
                 onChange={() => {
                   handleChange(item);
                 }}
+                // onChange={handleChange}
               />
               <label htmlFor={item?.id}>{item?.attributes?.title}</label>
             </div>
@@ -68,7 +73,7 @@ const Products = () => {
               type="range"
               min={0}
               max={1000}
-              onChange={(e) => setMaxPrice(e.target.value)}
+              onChange={(item) => setMaxPrice(item.target.valueIndex)}
             />
             <span>{maxPrice}</span>
           </div>
@@ -79,9 +84,9 @@ const Products = () => {
             <input
               type="radio"
               id="asc"
-              value="asc"
+              valueIndex="asc"
               name="price"
-              onChange={(e) => setSort("asc")}
+              onChange={(item) => setSort("asc")}
             />
             <label htmlFor="asc">Price (Lowest first)</label>
           </div>
@@ -89,9 +94,9 @@ const Products = () => {
             <input
               type="radio"
               id="desc"
-              value="desc"
+              valueIndex="desc"
               name="price"
-              onChange={(e) => setSort("desc")}
+              onChange={(item) => setSort("desc")}
             />
             <label htmlFor="desc">Price (Highest first)</label>
           </div>
@@ -104,7 +109,7 @@ const Products = () => {
           alt=""
         />
         <List
-          catId={catId}
+          catId={dispatch(addId)}
           maxPrice={maxPrice}
           sort={sort}
           subCats={selectedSubCats}

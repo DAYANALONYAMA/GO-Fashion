@@ -59,3 +59,48 @@ function App() {
 }
 
 export default App;
+
+// const router = createBrowserRouter([
+//   {
+//     path: "/",
+//     element: <Layout />,
+//     children: [
+//       {
+//         path: "/",
+//         element: <Home />,
+//       },
+
+//       {
+//         path: "/à propos",
+//         element: <About />,
+//       },
+
+//       {
+//         path: "/contact",
+//         element: <Contact />,
+//       },
+
+//       {
+//         path: "/products",
+//         element: <Products />,
+
+//         children: [
+//           {
+//             path: ":id",
+//             element: <Product />,
+//           },
+//         ],
+//       },
+//     ],
+//   },
+// ]);
+
+// function App() {
+//   return (
+//     <div>
+//       <RouterProvider router={router} />
+//     </div>
+//   );
+// }
+
+// export default App;

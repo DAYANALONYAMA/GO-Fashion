@@ -10,6 +10,7 @@ const Container = styled.div`
   display: flex;
   position: relative;
   overflow: hidden;
+  padding-top: 80px;
 `;
 
 const Arrow = styled.div`

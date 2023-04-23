@@ -4,6 +4,7 @@ import Card from "../../componemts/Card/Card";
 import Categories from "../../componemts/Categories/Categories";
 import Contact from "../../componemts/Contact/Contact";
 import FeaturedProducts from "../../componemts/FeatureProducts/FeaturedProducts";
+import Navbar from "../../componemts/Navbar/Navbar";
 import Slider from "../../componemts/slider/Slider";
 
 const Home = () => {
