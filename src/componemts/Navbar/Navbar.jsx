@@ -73,9 +73,9 @@ const Navbar = () => {
 
           <div className="right">
             <div className="icons">
-              {/* <SearchIcon /> */}
-              {/* <PersonOutlineOutlinedIcon />
-              <FavoriteBorderOutlinedIcon /> */}
+              <SearchIcon />
+              <PersonOutlineOutlinedIcon />
+              <FavoriteBorderOutlinedIcon />
               <div className="cartIcon" onClick={() => setOpen(!open)}>
                 <ShoppingCartOutlinedIcon />
                 <span></span>
