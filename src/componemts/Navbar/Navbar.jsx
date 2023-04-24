@@ -74,7 +74,9 @@ const Navbar = () => {
           <div className="right">
             <div className="icons">
               <SearchIcon />
-              <PersonOutlineOutlinedIcon />
+              <Link className="link" to="signin">
+                <PersonOutlineOutlinedIcon />
+              </Link>
               <FavoriteBorderOutlinedIcon />
               <div className="cartIcon" onClick={() => setOpen(!open)}>
                 <ShoppingCartOutlinedIcon />
