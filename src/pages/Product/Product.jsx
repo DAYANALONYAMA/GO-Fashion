@@ -7,7 +7,7 @@ import "./Product.scss";
 import { useParams } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import { useDispatch } from "react-redux";
-import { addToCart } from "../../redux/cartReducer";
+import { addToCart } from "../../store/cartReducer";
 
 const Product = () => {
   const id = useParams().id;

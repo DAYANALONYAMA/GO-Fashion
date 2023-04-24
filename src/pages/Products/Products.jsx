@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import List from "../../componemts/List/List";
 import useFetch from "../../hooks/useFetch";
 import { useDispatch } from "react-redux";
-import { addId } from "../../redux/idReducer";
+import { addId } from "../../store/idReducer";
 import "./Products.scss";
 
 const Products = () => {
