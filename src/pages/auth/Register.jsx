@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { mobile } from "./responsive";
 
@@ -10,7 +9,7 @@ const Container = styled.div`
       rgba(255, 255, 255, 0.5),
       rgba(255, 255, 255, 0.5)
     ),
-    url("https://images.pexels.com/photos/6984650/pexels-photo-6984650.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940")
+    url("https://images.pexels.com/photos/6984661/pexels-photo-6984661.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940")
       center;
   background-size: cover;
   display: flex;
@@ -19,7 +18,7 @@ const Container = styled.div`
 `;
 
 const Wrapper = styled.div`
-  width: 25%;
+  width: 40%;
   padding: 20px;
   background-color: white;
   ${mobile({ width: "75%" })}
@@ -32,19 +31,29 @@ const Title = styled.h1`
 
 const Form = styled.form`
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
 `;
 
 const Input = styled.input`
   flex: 1;
   min-width: 40%;
-  margin: 10px 0;
+  margin: 20px 10px 0px 0px;
   padding: 10px;
 `;
 
+const Agreement = styled.span`
+  font-size: 12px;
+  margin: 20px 0px;
+`;
+
 const Button = styled.button`
-  padding: 5px;
-  width: 100px;
+  width: 40%;
+
+  padding: 15px 20px;
+
+  
+  
+ 
 
   border: 1px solid #111464;
   font-size: 15px;
@@ -55,33 +64,30 @@ const Button = styled.button`
     background-color: #ff782d;
     color: white;
     border: none;
-  }
 `;
 
-const Lien = styled.a`
-  margin: 5px 0px;
-  font-size: 12px;
-  text-decoration: none;
-  cursor: pointer;
-`;
-
-const Signin = () => {
+const Register = () => {
   return (
     <Container>
       <Wrapper>
-        <Title>CONNECTEZ VOUS</Title>
+        <Title>CRÉER UN COMPTE</Title>
         <Form>
-          <Input placeholder="nom d'utilisateur ou adresse e-mail" />
+          <Input placeholder="nom" />
+          <Input placeholder="prénom" />
+          <Input placeholder="nom d'utilisateur" />
+          <Input placeholder="email" />
           <Input placeholder="mot de passe" />
-          <Button>Connexion</Button>
-          <Lien>Mot de passe oublier</Lien>
-          <Lien>
-            <Link to="/register">Créer un nouveau compte</Link>
-          </Lien>
+          <Input placeholder="confirmer votre mot de passe" />
+          <Agreement>
+            En créant un compte, je consens au traitement de mes données
+            personnelles
+            <b>données conformément à la POLITIQUE DE CONFIDENTIALITÉY</b>
+          </Agreement>
+          <Button>CRÉER</Button>
         </Form>
       </Wrapper>
     </Container>
   );
 };
 
-export default Signin;
+export default Register;

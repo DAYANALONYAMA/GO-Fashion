@@ -7,6 +7,8 @@ import Products from "./pages/Products/Products";
 import "../src/app.scss";
 import About from "./pages/About/About";
 import Contact from "./pages/Contact/Contact";
+import Signin from "./pages/auth/Signin";
+import Register from "./pages/auth/Register";
 
 const Layout = () => {
   return (
@@ -45,6 +47,14 @@ const router = createBrowserRouter([
       {
         path: "/product/:id",
         element: <Product />,
+      },
+      {
+        path: "/signin",
+        element: <Signin />,
+      },
+      {
+        path: "/register",
+        element: <Register />,
       },
     ],
   },
