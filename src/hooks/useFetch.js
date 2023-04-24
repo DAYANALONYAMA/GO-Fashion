@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { makeRequest } from "../makeRequest";
+import { makeRequest } from "../config/config";
 
 const useFetch = (url) => {
   const [data, setData] = useState(null);
