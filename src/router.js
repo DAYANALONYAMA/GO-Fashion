@@ -7,6 +7,7 @@ import Home from "./pages/Home/Home";
 import Product from "./pages/Product/Product";
 import Products from "./pages/Products/Products";
 import { Layout } from "./layouts/PublicLayout";
+import { Profile } from "./pages/users/Profile";
 export const router = createBrowserRouter([
     {
         path: "/",
@@ -42,6 +43,10 @@ export const router = createBrowserRouter([
             {
                 path: "/register",
                 element: <Register />,
+            },
+            {
+                path: "/profile",
+                element: <Profile />,
             },
         ],
     },

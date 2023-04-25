@@ -18,14 +18,16 @@ const Signin = () => {
     e.preventDefault();
     setUser((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     loginMutation({ variables: user });
-    if (!loading && !error && data && data.login) {
-      let userLogged = data?.login?.user
+    if (!loading && !error) {
+      let userLogged = await data?.login?.user
       localStorage.setItem('access_token', data?.login?.jwt)
       dispatch(login({ ...userLogged }))
-      navigation('/profile')
+       if (isAuthenticated) {
+         navigation('/profile')
+       }
       
     }
   };

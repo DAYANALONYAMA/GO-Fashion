@@ -9,7 +9,9 @@ import "./Navbar.scss";
 import Cart from "../Cart/Cart";
 import DensityMediumIcon from "@mui/icons-material/DensityMedium";
 import CloseIcon from "@mui/icons-material/Close";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../../store/authReducer";
+import AccountMenu from "./DropdownMenu";
 
 const Navbar = () => {
   const [Toggle, ShowMenu] = useState(false);
@@ -22,11 +24,11 @@ const Navbar = () => {
   function handleOpenMenu() {
     document.body.classList.add("ActiveMenu");
   }
-
+ 
   function handCloseMenu() {
     document.body.classList.remove("ActiveMenu");
   }
-
+ 
   return (
     <>
       <div className="navbar">
@@ -79,9 +81,7 @@ const Navbar = () => {
             <div className="icons">
               <SearchIcon />
               {isAuthenticated ? (
-                <Link className="link" to="/profile">
-                <Avatar>R</Avatar>
-               </Link>
+              <AccountMenu/>
               ) : (
                 <Link className="link" to="signin">
                   <PersonOutlineOutlinedIcon />
