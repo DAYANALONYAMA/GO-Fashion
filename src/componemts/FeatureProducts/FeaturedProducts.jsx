@@ -4,7 +4,7 @@ import "./FeaturedProducts.scss";
 import useFetch from "../../hooks/useFetch";
 import axios from "axios";
 
-import { CustomSkeleton } from "../custom-skeleton/CustomSkeleton";
+import { CustomSkeleton } from "../Shared/custom-skeleton/CustomSkeleton";
 import { useEffect } from "react";
 
 const FeaturedProducts = ({ productsFiltered, type,error , loading}) => {

@@ -6,11 +6,11 @@ import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlin
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { Link } from "react-router-dom";
 import "./Navbar.scss";
-import Cart from "../Cart/Cart";
+import Cart from "../../Cart/Cart";
 import DensityMediumIcon from "@mui/icons-material/DensityMedium";
 import CloseIcon from "@mui/icons-material/Close";
 import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../../store/authReducer";
+import { logout } from "../../../store/authReducer";
 import AccountMenu from "./DropdownMenu";
 
 const Navbar = () => {
