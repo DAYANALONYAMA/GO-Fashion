@@ -1,7 +1,76 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { mobile } from "./responsive";
+import { LOGIN_MUTATION } from "../../graphql/user/login";
+import { useMutation } from "@apollo/client";
+import { Backdrop, CircularProgress } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../../store/authReducer";
+
+const Signin = () => {
+  const [user, setUser] = useState({ identifier: "", password: "" });
+  const [loginMutation, { data, loading, error }] = useMutation(LOGIN_MUTATION);
+  const { isAuthenticated } = useSelector((state) => state.auth);
+  const dispatch = useDispatch()
+  const navigation = useNavigate()
+  const handleChange = (e) => {
+    e.preventDefault();
+    setUser((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    loginMutation({ variables: user });
+    if (!loading && !error && data && data.login) {
+      let userLogged = data?.login?.user
+      localStorage.setItem('access_token', data?.login?.jwt)
+      dispatch(login({ ...userLogged }))
+      navigation('/profile')
+      
+    }
+  };
+
+  if (loading)
+    return (
+      <Backdrop
+        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={loading}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
+    );
+
+  return (
+    <Container>
+      <Wrapper>
+        <Title>CONNECTEZ VOUS</Title>
+        <Form onSubmit={handleSubmit}>
+          <Input
+            placeholder="nom d'utilisateur ou adresse e-mail"
+            onChange={handleChange}
+            name="identifier"
+            required
+          />
+          <Input
+            placeholder="mot de passe"
+            onChange={handleChange}
+            name="password"
+            required
+          />
+          <Button>Connexion</Button>
+          <Lien>Mot de passe oublier</Lien>
+          <Lien>
+            <Link to="/register">Créer un nouveau compte</Link>
+          </Lien>
+        </Form>
+      </Wrapper>
+    </Container>
+  );
+};
+
+export default Signin;
+
+
 
 const Container = styled.div`
   width: 100vw;
@@ -23,6 +92,7 @@ const Wrapper = styled.div`
   padding: 20px;
   background-color: white;
   ${mobile({ width: "75%" })}
+  padding: 2rem;
 `;
 
 const Title = styled.h1`
@@ -40,6 +110,7 @@ const Input = styled.input`
   min-width: 40%;
   margin: 10px 0;
   padding: 10px;
+  border-radius: 4px;
 `;
 
 const Button = styled.button`
@@ -64,24 +135,3 @@ const Lien = styled.a`
   text-decoration: none;
   cursor: pointer;
 `;
-
-const Signin = () => {
-  return (
-    <Container>
-      <Wrapper>
-        <Title>CONNECTEZ VOUS</Title>
-        <Form>
-          <Input placeholder="nom d'utilisateur ou adresse e-mail" />
-          <Input placeholder="mot de passe" />
-          <Button>Connexion</Button>
-          <Lien>Mot de passe oublier</Lien>
-          <Lien>
-            <Link to="/register">Créer un nouveau compte</Link>
-          </Lien>
-        </Form>
-      </Wrapper>
-    </Container>
-  );
-};
-
-export default Signin;

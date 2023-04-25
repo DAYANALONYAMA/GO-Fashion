@@ -1,6 +1,8 @@
 import { RouterProvider} from "react-router-dom";
 import "../src/app.scss";
 import { router } from "./router";
+import { ApolloProvider } from "@apollo/client";
+import { client } from "./config/graphqlConfig";
 
 
 
@@ -8,9 +10,9 @@ import { router } from "./router";
 
 function App() {
   return (
-    <div>
+    <ApolloProvider client={client}>
       <RouterProvider router={router} />
-    </div>
+    </ApolloProvider>
   );
 }
 

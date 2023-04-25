@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import Avatar from '@mui/material/Avatar';
 import SearchIcon from "@mui/icons-material/Search";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
@@ -9,12 +9,16 @@ import "./Navbar.scss";
 import Cart from "../Cart/Cart";
 import DensityMediumIcon from "@mui/icons-material/DensityMedium";
 import CloseIcon from "@mui/icons-material/Close";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
   const [Toggle, ShowMenu] = useState(false);
   const [activeNav, setActiveNav] = useState("");
   const [open, setOpen] = useState(false);
-
+  const [womenCategoryTitle, setWomenCategoryTitle] = useState("femme");
+  const [manCategoryTitle, setManCategoryTitle] = useState("homme");
+  const [childCategoryTitle, setChildCategoryTitle] = useState("enfant");
+  const { user, isAuthenticated } = useSelector((state) => state.auth);
   function handleOpenMenu() {
     document.body.classList.add("ActiveMenu");
   }
@@ -45,17 +49,17 @@ const Navbar = () => {
             </div>
 
             <div className="item">
-              <Link className="link" to="/products/1">
+              <Link className="link" to={`/products/${womenCategoryTitle}`}>
                 Femme
               </Link>
             </div>
             <div className="item">
-              <Link className="link" to="/products/2">
+              <Link className="link" to={`/products/${manCategoryTitle}`}>
                 Homme
               </Link>
             </div>
             <div className="item">
-              <Link className="link" to="/products/3">
+              <Link className="link" to={`/products/${childCategoryTitle}`}>
                 Enfant
               </Link>
             </div>
@@ -74,9 +78,16 @@ const Navbar = () => {
           <div className="right">
             <div className="icons">
               <SearchIcon />
-              <Link className="link" to="signin">
-                <PersonOutlineOutlinedIcon />
-              </Link>
+              {isAuthenticated ? (
+                <Link className="link" to="/profile">
+                <Avatar>R</Avatar>
+               </Link>
+              ) : (
+                <Link className="link" to="signin">
+                  <PersonOutlineOutlinedIcon />
+                </Link>
+              )}
+
               <FavoriteBorderOutlinedIcon />
               <div className="cartIcon" onClick={() => setOpen(!open)}>
                 <ShoppingCartOutlinedIcon />

@@ -2,6 +2,32 @@ import React from "react";
 import styled from "styled-components";
 import { mobile } from "./responsive";
 
+const Register = () => {
+  return (
+    <Container>
+      <Wrapper>
+        <Title>CRÉER UN COMPTE</Title>
+        <Form>
+          <Input placeholder="nom" />
+          <Input placeholder="prénom" />
+          <Input placeholder="nom d'utilisateur" />
+          <Input placeholder="email" />
+          <Input placeholder="mot de passe" />
+          <Input placeholder="confirmer votre mot de passe" />
+          <Agreement>
+            En créant un compte, je consens au traitement de mes données
+            personnelles
+            <b>données conformément à la POLITIQUE DE CONFIDENTIALITÉY</b>
+          </Agreement>
+          <Button>CRÉER</Button>
+        </Form>
+      </Wrapper>
+    </Container>
+  )
+}
+
+export default Register;
+
 const Container = styled.div`
   width: 100vw;
   height: 100vh;
@@ -48,13 +74,7 @@ const Agreement = styled.span`
 
 const Button = styled.button`
   width: 40%;
-
   padding: 15px 20px;
-
-  
-  
- 
-
   border: 1px solid #111464;
   font-size: 15px;
   background-color: transparent;
@@ -64,30 +84,6 @@ const Button = styled.button`
     background-color: #ff782d;
     color: white;
     border: none;
-`;
+  }
+`
 
-const Register = () => {
-  return (
-    <Container>
-      <Wrapper>
-        <Title>CRÉER UN COMPTE</Title>
-        <Form>
-          <Input placeholder="nom" />
-          <Input placeholder="prénom" />
-          <Input placeholder="nom d'utilisateur" />
-          <Input placeholder="email" />
-          <Input placeholder="mot de passe" />
-          <Input placeholder="confirmer votre mot de passe" />
-          <Agreement>
-            En créant un compte, je consens au traitement de mes données
-            personnelles
-            <b>données conformément à la POLITIQUE DE CONFIDENTIALITÉY</b>
-          </Agreement>
-          <Button>CRÉER</Button>
-        </Form>
-      </Wrapper>
-    </Container>
-  );
-};
-
-export default Register;

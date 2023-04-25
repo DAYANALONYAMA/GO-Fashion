@@ -1,0 +1,37 @@
+#import "./user-fragment.graphql"
+mutation registerMutation(
+  $username: String!
+  $email: String!
+  $password: String!
+  $firstName: String!
+  $lastName: String!
+  $middleName: String!
+  $birthDate: Date!
+  $telephone: String!
+  $isActive: Boolean!
+  $etd: ID
+  $plan_division: ID
+  $customRole: ID
+) {
+  register(
+    input: {
+      middleName: $middleName
+      username: $username
+      email: $email
+      password: $password
+      firstName: $firstName
+      lastName: $lastName
+      birthDate: $birthDate
+      telephone: $telephone
+      etd: $etd
+      plan_division: $plan_division
+      custom_role: $customRole
+      isActive: $isActive
+    }
+  ) {
+    jwt
+    user {
+      ...userFragment
+    }
+  }
+}
