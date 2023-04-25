@@ -21,6 +21,8 @@ const Navbar = () => {
   const [manCategoryTitle, setManCategoryTitle] = useState("homme");
   const [childCategoryTitle, setChildCategoryTitle] = useState("enfant");
   const { user, isAuthenticated } = useSelector((state) => state.auth);
+  const {totalPrice } = useSelector((state) => state.cart);
+  
   function handleOpenMenu() {
     document.body.classList.add("ActiveMenu");
   }
@@ -90,8 +92,8 @@ const Navbar = () => {
 
               <FavoriteBorderOutlinedIcon />
               <div className="cartIcon" onClick={() => setOpen(!open)}>
-                <ShoppingCartOutlinedIcon />
-                <span></span>
+                <ShoppingCartOutlinedIcon /> 
+                <span>{totalPrice}</span>
               </div>
             </div>
           </div>

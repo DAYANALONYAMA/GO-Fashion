@@ -12,6 +12,7 @@ import thunk from 'redux-thunk';
 const persistConfig = {
   key: 'root',
   storage,
+  blacklist: ['product']
 }
 const reducers = combineReducers({
   cart: cartReducer, product: productReducer, auth: authReducer

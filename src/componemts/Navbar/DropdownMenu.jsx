@@ -10,12 +10,13 @@ import FavoriteBorderOutlinedIcon from "@mui/icons-material/NotificationsActiveO
 import Tooltip from "@mui/material/Tooltip";
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../store/authReducer";
 import { useNavigate } from "react-router-dom";
 
 export default function AccountMenu() {
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const { user} = useSelector((state) => state.auth);
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const open = Boolean(anchorEl);
@@ -26,6 +27,7 @@ export default function AccountMenu() {
     setAnchorEl(null);
   };
   const handleLogout =()=>{
+    localStorage.clear()
     dispatch(logout())
   }
   return (
@@ -80,7 +82,7 @@ export default function AccountMenu() {
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
         <MenuItem onClick={()=>navigate('/profile')}>
-          <Avatar /> Profile
+          <Avatar /> Bienvenue {user?.username}
         </MenuItem>
         <MenuItem onClick={handleClose}>
           <ListItemIcon>

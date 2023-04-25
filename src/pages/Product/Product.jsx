@@ -6,7 +6,7 @@ import BalanceIcon from "@mui/icons-material/Balance";
 import "./Product.scss";
 import { useParams } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../store/cartReducer";
 
 const Product = () => {
@@ -17,8 +17,7 @@ const Product = () => {
   const dispatch = useDispatch();
   const { data, loading, error } = useFetch(`/products/${id}?populate=*`);
 
-  console.log("img", setSelectedImg);
-  console.log("données", data);
+ 
   // const images = [
   //   "https://res.cloudinary.com/dhm9nicld/image/upload/v1668414921/samples/ecommerce/shoes.png ",
   //   "https://res.cloudinary.com/dhm9nicld/image/upload/v1668414925/samples/ecommerce/leather-bag-gray.jpg",

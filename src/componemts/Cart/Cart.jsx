@@ -7,13 +7,13 @@ import { useDispatch } from "react-redux";
 import { makeRequest } from "../../config/config";
 
 const Cart = () => {
-  const products = useSelector((state) => state.cart.products);
+  const {products, totalPrice } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
-  const totalPrice = () => {
-    let total = 0;
-    products.forEach((item) => (total += item.quantity * item.price));
-    return total.toFixed(2);
-  };
+  // const totalPrice = () => {
+  //   let total = 0;
+  //   products.forEach((item) => (total += item.quantity * item.price));
+  //   return total.toFixed(2);
+  // };
 
   return (
     <div className="cart">
@@ -36,7 +36,7 @@ const Cart = () => {
       ))}
       <div className="total">
         <span>SUBTOTAL</span>
-        <span>{totalPrice()}</span>
+        <span>{totalPrice}</span>
       </div>
       <button>PROCEED TO CHECKOUT</button>
       <span className="reset">RESET Cart</span>

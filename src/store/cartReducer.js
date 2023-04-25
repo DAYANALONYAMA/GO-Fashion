@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   products: [],
+  totalPrice: 0,
 };
 
 export const cartSlice = createSlice({
@@ -16,6 +17,9 @@ export const cartSlice = createSlice({
       } else {
         state.products.push(action.payload);
       }
+      state.products.forEach((item) => {
+        state.totalPrice += (parseInt(item.quantity) * parseFloat(item.price)).toFixed(2)
+      });
     },
     removeItem: (state, action) => {
       state.products = state.products.filter(
