@@ -18,6 +18,7 @@ mutation loginMutation($identifier: String!, $password: String!) {
           id
           attributes{
             name
+            slug
           }
         }
       }
