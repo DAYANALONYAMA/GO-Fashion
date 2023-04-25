@@ -1,30 +1,130 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { mobile } from "./responsive";
+import { useDispatch, useSelector } from "react-redux";
+import { useMutation } from "@apollo/client";
+import { REGISTER_MUTATION } from "../../graphql/user/register";
+import { useNavigate } from "react-router-dom";
+import { login } from "../../store/authReducer";
+import { Backdrop, CircularProgress } from "@mui/material";
+import { InputField } from "../../componemts/Shared/inputField/TextFieldInput";
+import { useForm } from "react-hook-form";
 
 const Register = () => {
+  const {
+    control,
+    handleSubmit,
+    formState: { errors, isValid },
+    reset,
+  } = useForm({
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
+  const [user, setUser] = useState({})
+  const { isAuthenticated } = useSelector((state) => state.auth);
+  const [loginMutation, { data, loading, error }] =
+    useMutation(REGISTER_MUTATION);
+  const dispatch = useDispatch();
+  const navigation = useNavigate();
+
+
+  const onSubmit = async (data) => {
+    delete data.confirmPassword
+
+    setUser(data)
+    loginMutation({ variables: {
+      ...data,
+      username: data.email,
+      custom_role:1,
+    } });
+    if (!loading && !error) {
+      let userLogged = await data?.login?.user;
+      localStorage.setItem("access_token", data?.login?.jwt);
+      dispatch(login({ ...userLogged }));
+      redirectToHomeScreen();
+    }
+  };
+
+  const redirectToHomeScreen = () => {
+    if (isAuthenticated) {
+      navigation("/profile");
+      reset();
+    }
+  };
+  useEffect(() => {
+    redirectToHomeScreen();
+  }, [isAuthenticated]);
+  if (loading)
+    return (
+      <Backdrop
+        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={loading}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
+    );
+
   return (
     <Container>
       <Wrapper>
         <Title>CRÉER UN COMPTE</Title>
-        <Form>
-          <Input placeholder="nom" />
-          <Input placeholder="prénom" />
-          <Input placeholder="nom d'utilisateur" />
-          <Input placeholder="email" />
-          <Input placeholder="mot de passe" />
-          <Input placeholder="confirmer votre mot de passe" />
+        {JSON.stringify(user)}
+        <Form onSubmit={handleSubmit(onSubmit)}>
+          <InputField
+            placeholder="nom"
+            control={control}
+            name="middleName"
+            rules={{ required: true }}
+            errors={errors.middleName}
+            labelTextError="Ce champ est requis."
+          />
+          <InputField
+            placeholder="prénom"
+            control={control}
+            name="firstName"
+            rules={{ required: true }}
+            errors={errors.firstName}
+            labelTextError="Ce champ est requis."
+          />
+          <InputField
+            placeholder="email"
+            control={control}
+            name="email"
+            rules={{ required: true }}
+            errors={errors.email}
+            labelTextError="Ce champ est requis."
+          />
+          <InputField
+            placeholder="mot de passe"
+            control={control}
+            name="password"
+            secureTextEntry={true}
+            rules={{ required: true }}
+            errors={errors.password}
+            labelTextError="Ce champ est requis."
+          />
+          <InputField
+            placeholder="confirmer votre mot de passe"
+            control={control}
+            name="confirmPassword"
+            secureTextEntry={true}
+            rules={{ required: true }}
+            errors={errors.confirmPassword}
+            labelTextError="Ce champ est requis."
+          />
           <Agreement>
             En créant un compte, je consens au traitement de mes données
-            personnelles
+            personnelles &nbsp;
             <b>données conformément à la POLITIQUE DE CONFIDENTIALITÉY</b>
           </Agreement>
           <Button>CRÉER</Button>
         </Form>
       </Wrapper>
     </Container>
-  )
-}
+  );
+};
 
 export default Register;
 
@@ -85,5 +185,4 @@ const Button = styled.button`
     color: white;
     border: none;
   }
-`
-
+`;
