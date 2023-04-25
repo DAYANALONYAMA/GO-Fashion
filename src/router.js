@@ -1,8 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
 import About from "./pages/about/About";
 import Contact from "./pages/contact";
-import Signin from "./pages/auth/Signin";
-import Register from "./pages/auth/Register";
+import Signin from "./pages/auth/signin";
+import Register from "./pages/auth/register";
 import Home from "./pages/home";
 import Product from "./pages/product";
 import Products from "./pages/products";
