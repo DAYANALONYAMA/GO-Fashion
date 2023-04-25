@@ -1,4 +1,7 @@
-#import "./user-fragment.graphql"
+
+import { gql } from "@apollo/client";
+
+export const REGISTER_MUTATION = gql`
 mutation registerMutation(
   $username: String!
   $email: String!
@@ -9,8 +12,6 @@ mutation registerMutation(
   $birthDate: Date!
   $telephone: String!
   $isActive: Boolean!
-  $etd: ID
-  $plan_division: ID
   $customRole: ID
 ) {
   register(
@@ -23,15 +24,34 @@ mutation registerMutation(
       lastName: $lastName
       birthDate: $birthDate
       telephone: $telephone
-      etd: $etd
-      plan_division: $plan_division
       custom_role: $customRole
       isActive: $isActive
     }
   ) {
     jwt
     user {
-      ...userFragment
+      id
+      username
+      isActive
+      firstName
+      lastName
+      middleName
+      telephone
+      custom_role {
+        data {
+          id
+          attributes {
+            name
+            slug
+          }
+        }
+      }
+      avatar {
+        name
+        url
+      }
     }
   }
 }
+
+`
