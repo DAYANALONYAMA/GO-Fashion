@@ -11,7 +11,7 @@ import Tooltip from "@mui/material/Tooltip";
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../../store/authReducer";
+import { logout } from "../../../store/authReducer";
 import { useNavigate } from "react-router-dom";
 
 export default function AccountMenu() {

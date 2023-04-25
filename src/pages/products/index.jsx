@@ -1,17 +1,15 @@
 import React, { useCallback, useEffect } from "react";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-import List from "../../componemts/List/ProductList";
-import useFetch from "../../hooks/useFetch";
 import { useDispatch, useSelector } from "react-redux";
 import { addId, addProducts, filterProductBySubCategories } from "../../store/productReducer";
 import "./Products.scss";
 import { FILTER_PRODUCT_BY_TYPE_QUERY } from "../../graphql/product/filter-product-by-type";
 import { useGraphQLFetch } from "../../hooks/useGraphQLFetch";
 import { parseProductResult } from "../../utils/parserResult/productResults";
-import { Box, Container } from "@mui/material";
+import { Container } from "@mui/material";
 import Grid from "@mui/material/Grid";
-import ProductList from "../../componemts/List/ProductList";
+import ProductList from "../../componemts/Products/ProductList";
 
 const Products = () => {
   let { categoryTitle } = useParams();
