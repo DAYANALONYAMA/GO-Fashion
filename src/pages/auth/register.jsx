@@ -38,24 +38,26 @@ const findClientRole =()=> {
   console.log("roles:", roles);
   return roleParsed.find((userRole)=>userRole.slug=== USER_ROLE.CLIENT)
 }
-  useEffect(()=>{
-     findClientRole()
-  },[roles])
+  // useEffect(()=>{
+  //    findClientRole()
+  // },[roles])
   const onSubmit = async (data) => {
     delete data.confirmPassword
-
     setUser(data)
-    loginMutation({ variables: {
+   ;
+    const {data:{register:{ user:userLogged, jwt}}} = await  loginMutation({ variables: {
       ...data,
       username: data.email,
+      lastName: data.middleName,
       isActive: true,
-      customRole: findClientRole().id,
-    } });
-    if (!loading && !error) {
-      let userLogged = await data?.login?.user;
-      localStorage.setItem("access_token", data?.login?.jwt);
+      // customRole: findClientRole().id,
+    } })
+    console.log("userLogged:", data);
+    if (jwt && userLogged) {
+      localStorage.setItem('access_token', jwt)
       dispatch(login({ ...userLogged }));
       redirectToHomeScreen();
+      
     }
   };
 
@@ -82,7 +84,6 @@ const findClientRole =()=> {
     <Container>
       <Wrapper>
         <Title>CRÉER UN COMPTE</Title>
-        {JSON.stringify(findClientRole())}
         <Form onSubmit={handleSubmit(onSubmit)}>
           <InputField
             placeholder="nom"
@@ -104,6 +105,14 @@ const findClientRole =()=> {
             placeholder="email"
             control={control}
             name="email"
+            rules={{ required: true }}
+            errors={errors.email}
+            labelTextError="Ce champ est requis."
+          />
+           <InputField
+            placeholder="Telephone"
+            control={control}
+            name="telephone"
             rules={{ required: true }}
             errors={errors.email}
             labelTextError="Ce champ est requis."

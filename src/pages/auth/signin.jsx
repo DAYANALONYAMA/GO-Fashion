@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { mobile } from "./responsive";
@@ -20,18 +20,23 @@ const Signin = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    loginMutation({ variables: user });
-    if (!loading && !error) {
-      let userLogged = await data?.login?.user
-      localStorage.setItem('access_token', data?.login?.jwt)
-      dispatch(login({ ...userLogged }))
-       if (isAuthenticated) {
-         navigation('/profile')
-       }
+    const {data:{login:{ user:userLogged, jwt}}} = await loginMutation({ variables: user })
+    if (jwt && userLogged) {
+      localStorage.setItem('access_token', jwt)
+      dispatch(login({ ...userLogged}))
+      redirectToProfile()
       
     }
   };
 
+  const redirectToProfile =useCallback(()=>{
+    if (isAuthenticated) {
+      navigation('/profile')
+    }
+  })
+  useEffect(()=>{
+    redirectToProfile()
+  },[isAuthenticated, redirectToProfile]);
   if (loading)
     return (
       <Backdrop
