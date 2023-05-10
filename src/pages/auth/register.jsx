@@ -9,6 +9,10 @@ import { login } from "../../store/authReducer";
 import { Backdrop, CircularProgress } from "@mui/material";
 import { InputField } from "../../componemts/Shared/inputField/TextFieldInput";
 import { useForm } from "react-hook-form";
+import { USER_ROLE } from "../../config/variables";
+import { useGraphQLFetch } from "../../hooks/useGraphQLFetch";
+import { GET_ALL_ROLES } from "../../graphql/user/get-all-roles";
+import { parseUserRoleResult } from "../../utils/parserResult/parseUserRole";
 
 const Register = () => {
   const {
@@ -24,12 +28,19 @@ const Register = () => {
   });
   const [user, setUser] = useState({})
   const { isAuthenticated } = useSelector((state) => state.auth);
+  const {data: roles, loading:isRolesLoading, errorRoles} = useGraphQLFetch(GET_ALL_ROLES)
   const [loginMutation, { data, loading, error }] =
     useMutation(REGISTER_MUTATION);
   const dispatch = useDispatch();
   const navigation = useNavigate();
-
-
+const findClientRole =()=> {
+  let roleParsed = roles?.customRoles?.data.map((item)=> parseUserRoleResult(item))
+  console.log("roles:", roles);
+  return roleParsed.find((userRole)=>userRole.slug=== USER_ROLE.CLIENT)
+}
+  useEffect(()=>{
+     findClientRole()
+  },[roles])
   const onSubmit = async (data) => {
     delete data.confirmPassword
 
@@ -37,7 +48,8 @@ const Register = () => {
     loginMutation({ variables: {
       ...data,
       username: data.email,
-      custom_role:1,
+      isActive: true,
+      customRole: findClientRole().id,
     } });
     if (!loading && !error) {
       let userLogged = await data?.login?.user;
@@ -70,7 +82,7 @@ const Register = () => {
     <Container>
       <Wrapper>
         <Title>CRÉER UN COMPTE</Title>
-        {JSON.stringify(user)}
+        {JSON.stringify(findClientRole())}
         <Form onSubmit={handleSubmit(onSubmit)}>
           <InputField
             placeholder="nom"

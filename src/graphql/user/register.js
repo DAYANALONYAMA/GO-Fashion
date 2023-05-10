@@ -8,21 +8,17 @@ mutation registerMutation(
   $password: String!
   $firstName: String!
   $lastName: String!
-  $middleName: String!
-  $birthDate: Date!
   $telephone: String!
   $isActive: Boolean!
   $customRole: ID
 ) {
   register(
     input: {
-      middleName: $middleName
       username: $username
       email: $email
       password: $password
       firstName: $firstName
       lastName: $lastName
-      birthDate: $birthDate
       telephone: $telephone
       custom_role: $customRole
       isActive: $isActive
@@ -35,7 +31,6 @@ mutation registerMutation(
       isActive
       firstName
       lastName
-      middleName
       telephone
       custom_role {
         data {
