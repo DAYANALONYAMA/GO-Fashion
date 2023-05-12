@@ -1,53 +1,28 @@
 import React from "react";
 import "./Footer.scss";
-import { Link } from "react-router-dom";
+
+import FacebookIcon from "@mui/icons-material/Facebook";
+import InstagramIcon from "@mui/icons-material/Instagram";
+import TwitterIcon from "@mui/icons-material/Twitter";
 
 const Footer = () => {
   return (
     <div className="footer">
+      <div className="contact">
+        <div className="wrapper">
+          <div className="icons">
+            <FacebookIcon />
+            <InstagramIcon />
+            <TwitterIcon />
+          </div>
+        </div>
+      </div>
       <div className="top">
         <div className="item">
-          <h1>Categories</h1>
-          <Link className="link">
-            <span>Femme</span>
-          </Link>
-
-          <Link className="link">
-            <span>Homme</span>
-          </Link>
-
-          <Link className="link">
-            <span>Chaussure</span>
-          </Link>
-
-          <Link className="link">
-            <span>Accessoires</span>
-          </Link>
-
-          <Link className="link">
-            <span>Arrivage</span>
-          </Link>
-        </div>
-        <div className="item">
-          <h1>Infos</h1>
-          <span>Carte fidelité</span>
-          <span>Service Client</span>
-          <span>Trouver une boutique</span>
-        </div>
-        {/* <div className="item">
-          <h1>About</h1>
           <span>
-            Lorem ipsum dolor sit amet conse ctetur adipisicing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore. Lorem ipsum dolor sit
-            amet conse ctetur adipisicing elit, seddo eiusmod tempor incididunt
-            ut labore etdolore.
+            115, Avenue Colonel Ebeya, Gombe <br /> +24300000 <br />
+            gofashion@gmail.com{" "}
           </span>
-        </div> */}
-        <div className="item">
-          <h1>Contact</h1>
-          <span>Phone:+243 00000</span>
-          <span>Email:gofashion@gmail.com</span>
-          <span>Adress: 115,Avenue Colonel Ebeya,Gombe</span>
         </div>
       </div>
       <div className="bottom">

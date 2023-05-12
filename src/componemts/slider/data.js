@@ -12,6 +12,7 @@ export const sliderItems = [
     img: "https://res.cloudinary.com/dhm9nicld/image/upload/v1668414939/cld-sample-3.jpg",
     title: "HOMME",
     desc: "DÉCOUVREZ NOTRE NOUVELE COLLECTION POUR HOMME",
+    bg: "f5fafd",
   },
 
   {
@@ -19,5 +20,6 @@ export const sliderItems = [
     img: "https://res.cloudinary.com/dhm9nicld/image/upload/v1668414921/samples/landscapes/girl-urban-view.jpg",
     title: "ENFANT",
     desc: "DÉCOUVREZ NOTRE NOUVELE COLLECTION POUR ENFANT",
+    bg: "f5fafd",
   },
 ];

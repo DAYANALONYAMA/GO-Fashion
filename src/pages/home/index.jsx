@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Categories from "../../componemts/Categories/Categories";
-import Contact from "../../componemts/Contact/Contact";
+
 import FeaturedProducts from "../../componemts/FeatureProducts/FeaturedProducts";
 import Slider from "../../componemts/slider/Slider";
 import { useGraphQLFetch } from "../../hooks/useGraphQLFetch";
@@ -9,21 +9,22 @@ import { parseProductResult } from "../../utils/parserResult/productResults";
 import { useDispatch } from "react-redux";
 import { addProducts } from "../../store/productReducer";
 
-
 const Home = () => {
   const [filters, setFilters] = useState({ type: "", isNew: null });
   const { data, loading, error } = useGraphQLFetch(
-    FILTER_PRODUCT_BY_TYPE_QUERY,
+    FILTER_PRODUCT_BY_TYPE_QUERY
     // {
     //   variables: {
     //     filters: { type: { eq: filters.type }, isNew: { eq: filters.isNew } },
     //   },
     // }
   );
- const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const productResults = () => {
-    let products = data?.products?.data?.map((product) => parseProductResult(product))
-    dispatch(addProducts(products))
+    let products = data?.products?.data?.map((product) =>
+      parseProductResult(product)
+    );
+    dispatch(addProducts(products));
     return data?.products?.data?.map((product) => parseProductResult(product));
   };
 
@@ -47,7 +48,6 @@ const Home = () => {
         loading={loading}
         type={"Promotion"}
       />
-      <Contact />
     </div>
   );
 };

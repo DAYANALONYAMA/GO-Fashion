@@ -7,8 +7,7 @@ import axios from "axios";
 import { CustomSkeleton } from "../Shared/custom-skeleton/CustomSkeleton";
 import { useEffect } from "react";
 
-const FeaturedProducts = ({ productsFiltered, type,error , loading}) => {
-  
+const FeaturedProducts = ({ productsFiltered, type, error, loading }) => {
   return (
     <div className="featuredProducts">
       <div className="top">
