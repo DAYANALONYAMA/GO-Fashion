@@ -1,0 +1,72 @@
+.footer {
+  background-color: white;
+  margin: 100px 0px 20px 0px;
+
+  .contact {
+    background-color: white;
+    color: #111464;
+    padding: 40px;
+    display: flex;
+
+    justify-content: center;
+    .icons {
+      display: flex;
+      gap: 10px;
+    }
+  }
+
+  .top {
+    display: flex;
+    justify-content: center;
+    .item {
+      display: flex;
+
+      align-items: center;
+      text-align: center;
+      font-size: 14px;
+
+      h1 {
+        font-size: 18px;
+        font-weight: 500;
+        color: #555;
+      }
+
+      span {
+        color: gray;
+      }
+    }
+  }
+
+  .bottom {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    .left {
+      gap: 25px;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      margin-top: 45px;
+      .logo {
+        color: blue;
+        font-weight: bold;
+        font-size: 30px;
+      }
+
+      .copyright {
+        margin-left: 20px;
+        font-size: 12px;
+        color: gray;
+      }
+    }
+    .right {
+      img {
+        height: 50px;
+      }
+    }
+    .link {
+      text-decoration: none;
+    }
+  }
+}
