@@ -109,3 +109,16 @@
     }
   }
 }
+
+@media (max-width: 800px) {
+  .product {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 1024px) {
+}
+
+@media (max-width: 991px) {
+}

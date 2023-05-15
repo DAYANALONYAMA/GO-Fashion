@@ -52,7 +52,11 @@ const Slide = styled.div`
   display: flex;
   align-items: center;
   background-color: #${(props) => props.bg};
-  ${mobile({})}
+  ${mobile({
+    flexDirection: "column-reverse",
+    height: "100vh",
+    marginTop: "50px",
+  })}
 `;
 
 const ImgContainer = styled.div`
@@ -73,14 +77,15 @@ const InfoContainer = styled.div`
   padding: 5%;
   ${mobile({
     position: "Absolute",
-    overflow: "hidden",
-    wordWrap: "break-word",
+
+    padding: "0",
   })}
 `;
 
 const Title = styled.h1`
   font-size: 70px;
   ${mobile({
+    textAlign: "center",
     color: "aliceblue",
     fontSize: "30px",
   })}
@@ -93,7 +98,9 @@ const Desc = styled.p`
   letter-spacing: 3px;
 
   ${mobile({
+    fontWeight: "bold",
     color: "aliceblue",
+    letterSpacing: "0.1px",
     fontSize: "10px",
     textAlign: "center",
     overflow: "hidden",
