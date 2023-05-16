@@ -8,6 +8,7 @@ import { useParams } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../store/cartReducer";
+import { CustomOverlay } from "../../componemts/Shared/CustomOverlay";
 
 const Product = () => {
   const id = useParams().id;
@@ -25,7 +26,7 @@ const Product = () => {
   return (
     <div className="product">
       {loading ? (
-        "loading"
+     <CustomOverlay isLoading={loading}/>
       ) : (
         <>
           <div className="left">

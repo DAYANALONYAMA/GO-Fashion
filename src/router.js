@@ -8,6 +8,7 @@ import Product from "./pages/product";
 import Products from "./pages/products";
 import { Layout } from "./layouts/PublicLayout";
 import { Profile } from "./pages/users/profile";
+import Shop from "./pages/shop";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -48,6 +49,13 @@ export const router = createBrowserRouter([
         path: "/profile",
         element: <Profile />,
       },
+      {
+        path: "/shop",
+        element: <Shop />,
+      },
+
     ],
+
   },
+
 ]);

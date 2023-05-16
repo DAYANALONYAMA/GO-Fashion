@@ -14,20 +14,26 @@ export const productSlice = createSlice({
       state.products = [...new Set(actual)];
     },
     filterProductBySubCategories: (state, { payload = [] }) => {
-      const actual = state.products;
-      if (Object.keys(payload).length > 0) {
-        actual.forEach((item) => {
-          state.products = item.sub_categories.filter((subCategory) => subCategory.id === 1
-          )
-          return
-        })
+      const actual = [...state.products];
+      const arr = payload.map(({ id }) => id)
+      let subCategories = new Set(arr);
+
+
+      if (subCategories.length !== 0) {
+        for (const id of subCategories) {
+          actual.forEach((item) => {
+            state.products = item.sub_categories.filter((subCategory) => subCategory.id === 3
+            )
+          })
+        }
+
+        return
       }
       else {
         state.products = actual;
       }
     },
     addProducts: (state, { payload }) => {
-      console.log("payload:", payload);
       state.products = payload
     },
     removeId: (state, { payload }) => {

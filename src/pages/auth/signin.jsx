@@ -7,6 +7,7 @@ import { useMutation } from "@apollo/client";
 import { Backdrop, CircularProgress } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../store/authReducer";
+import { CustomOverlay } from "../../componemts/Shared/CustomOverlay";
 
 const Signin = () => {
   const [user, setUser] = useState({ identifier: "", password: "" });
@@ -39,12 +40,7 @@ const Signin = () => {
   },[isAuthenticated, redirectToProfile]);
   if (loading)
     return (
-      <Backdrop
-        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={loading}
-      >
-        <CircularProgress color="inherit" />
-      </Backdrop>
+      <CustomOverlay isLoading={loading} />
     );
 
   return (
