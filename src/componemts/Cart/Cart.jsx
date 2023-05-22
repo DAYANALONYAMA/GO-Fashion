@@ -7,7 +7,8 @@ import { useDispatch } from "react-redux";
 import { makeRequest } from "../../config/config";
 
 const Cart = () => {
-  const {products, totalPrice } = useSelector((state) => state.cart);
+  const { products, totalPrice } = useSelector((state) => state.cart);
+
   const dispatch = useDispatch();
   // const totalPrice = () => {
   //   let total = 0;
@@ -30,16 +31,18 @@ const Cart = () => {
           </div>
           <DeleteOutlinedIcon
             className="delete"
-            onClick={() => dispatch(removeItem(item.id))}
+            onClick={() => dispatch(removeItem(item))}
           />
         </div>
       ))}
       <div className="total">
-        <span>SUBTOTAL</span>
+        <span>Valeur de la commande</span>
         <span>{totalPrice}</span>
       </div>
       <button>PROCEED TO CHECKOUT</button>
-      <span className="reset">RESET Cart</span>
+      <span className="reset" onClick={() => dispatch(resetCart(products))}>
+        RESET Cart
+      </span>
     </div>
   );
 };

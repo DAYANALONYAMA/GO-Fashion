@@ -4,7 +4,10 @@ import { ArrowLeftOutlined, ArrowRightOutlined } from "@material-ui/icons";
 // import ImgAccueil from "../assets/accueil.jpg";
 import { sliderItems } from "./data";
 import { mobile } from "./responsive";
-
+import { Autoplay } from "swiper";
+import Swiper from "react-id-swiper";
+import { SwiperSlide } from "swiper/react";
+import { useEffect } from "react";
 const Container = styled.div`
   width: 100%;
   height: 100%;
@@ -14,7 +17,6 @@ const Container = styled.div`
   padding-top: 5%;
   ${mobile({})};
 `;
-
 const Arrow = styled.div`
   width: 50px;
   height: 50px;
@@ -32,18 +34,16 @@ const Arrow = styled.div`
   cursor: pointer;
   opacity: 0.5;
   z-index: 2;
-
   ${mobile({
     width: "25px",
     height: "25px",
   })};
 `;
-
 const Wrapper = styled.div`
   height: 100%;
   display: flex;
   transition: all 1.5s ease;
-  transform: translateX(${(props) => props.slideIndex * -100}vw);
+  transform: translateX(${(props) => props.slideIndex * -100}vw) !important;
   ${mobile({})}
 `;
 const Slide = styled.div`
@@ -58,11 +58,9 @@ const Slide = styled.div`
     marginTop: "50px",
   })}
 `;
-
 const ImgContainer = styled.div`
   height: 100%;
   flex: 1;
-
   ${mobile({})}
 `;
 const Image = styled.img`
@@ -71,17 +69,14 @@ const Image = styled.img`
   height: 100%;
   ${mobile({})}
 `;
-
 const InfoContainer = styled.div`
   flex: 1;
   padding: 5%;
   ${mobile({
     position: "Absolute",
-
     padding: "0",
   })}
 `;
-
 const Title = styled.h1`
   font-size: 70px;
   ${mobile({
@@ -90,13 +85,11 @@ const Title = styled.h1`
     fontSize: "30px",
   })}
 `;
-
 const Desc = styled.p`
   margin: 8% 0px;
   font-size: 20px;
   font-weight: 500;
   letter-spacing: 3px;
-
   ${mobile({
     fontWeight: "bold",
     color: "aliceblue",
@@ -112,7 +105,6 @@ const Button = styled.button`
   font-size: 20px;
   background-color: transparent;
   cursor: pointer;
-
   &:hover {
     background-color: #ff782d;
     color: white;
@@ -122,7 +114,7 @@ const Button = styled.button`
     visibility: "hidden",
   })}
 `;
-
+const delay = 4000;
 const Slider = () => {
   const [slideIndex, setSlideIndex] = useState(0);
   const handleClick = (direction) => {
@@ -132,13 +124,68 @@ const Slider = () => {
       setSlideIndex(slideIndex < 2 ? slideIndex + 1 : 0);
     }
   };
+  // React.useEffect(() => {
+  //   const intervalId = setInterval(() => {
+  //     setSlideIndex((prevIndex) => (prevIndex + 1) % Wrapper.length);
+  //   }, 5000);
+  //   return () => clearInterval(intervalId);
+  // }, []);
+  // React.useEffect((0)=>{
+  // });
+  const timeoutRef = React.useRef(null);
+  function resetTimeout() {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+  }
+  React.useEffect(() => {
+    resetTimeout();
+    timeoutRef.current = setTimeout(
+      () =>
+        setSlideIndex((prevIndex) =>
+          prevIndex === Image.length - 1 ? 0 : prevIndex + 1
+        ),
+      delay
+    );
+    return () => {
+      resetTimeout();
+    };
+  }, [slideIndex]);
+  // deconnecter
+  // React.useEffect(() => {
+  //   setTimeout(
+  //     () =>
+  //       setSlideIndex((prevIndex) =>
+  //         prevIndex === Slide.length - 1 ? 0 : prevIndex + 1
+  //       ),
+  //     delay
+  //   );
+  //   return () => {};
+  // }, [slideIndex]);
+  // const params = {
+  //   spaceBetween: 30,
+  //   centeredSlides: true,
+  //   autoplay: {
+  //     delay: 2500,
+  //     disableOnInteraction: false,
+  //   },
+  //   pagination: {
+  //     el: ".swiper-pagination",
+  //     clickable: true,
+  //   },
+  //   navigation: {
+  //     nextEl: ".swiper-button-next",
+  //     prevEl: ".swiper-button-prev",
+  //   },
+  // };
   return (
     <Container>
+      {/* <Swiper modules={[Autoplay]} autoplay={{ delay: 4500 }}> */}
       <Arrow direction="left" onClick={() => handleClick("left")}>
         <ArrowLeftOutlined />
       </Arrow>
-
-      <Wrapper slideIndex={slideIndex}>
+      {/* <Swiper modules={[Autoplay]} autoplay={{ delay: 1000 }}> */}
+      <Wrapper slideIndex={slideIndex % 3} className="Wrapper">
         {sliderItems.map((item) => (
           <Slide bg={item.bg} key={item.id}>
             <ImgContainer>
@@ -152,7 +199,6 @@ const Slider = () => {
           </Slide>
         ))}
       </Wrapper>
-
       <Arrow direction="right" onClick={() => handleClick("right")}>
         <ArrowRightOutlined />
       </Arrow>

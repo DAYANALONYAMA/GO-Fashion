@@ -13,35 +13,35 @@ const Signin = () => {
   const [user, setUser] = useState({ identifier: "", password: "" });
   const [loginMutation, { data, loading, error }] = useMutation(LOGIN_MUTATION);
   const { isAuthenticated } = useSelector((state) => state.auth);
-  const dispatch = useDispatch()
-  const navigation = useNavigate()
+  const dispatch = useDispatch();
+  const navigation = useNavigate();
   const handleChange = (e) => {
     e.preventDefault();
     setUser((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const {data:{login:{ user:userLogged, jwt}}} = await loginMutation({ variables: user })
+    const {
+      data: {
+        login: { user: userLogged, jwt },
+      },
+    } = await loginMutation({ variables: user });
     if (jwt && userLogged) {
-      localStorage.setItem('access_token', jwt)
-      dispatch(login({ ...userLogged}))
-      redirectToProfile()
-      
+      localStorage.setItem("access_token", jwt);
+      dispatch(login({ ...userLogged }));
+      redirectToProfile();
     }
   };
 
-  const redirectToProfile =useCallback(()=>{
+  const redirectToProfile = useCallback(() => {
     if (isAuthenticated) {
-      navigation('/profile')
+      navigation("/profile");
     }
-  })
-  useEffect(()=>{
-    redirectToProfile()
-  },[isAuthenticated, redirectToProfile]);
-  if (loading)
-    return (
-      <CustomOverlay isLoading={loading} />
-    );
+  });
+  useEffect(() => {
+    redirectToProfile();
+  }, [isAuthenticated, redirectToProfile]);
+  if (loading) return <CustomOverlay isLoading={loading} />;
 
   return (
     <Container>
@@ -72,8 +72,6 @@ const Signin = () => {
 };
 
 export default Signin;
-
-
 
 const Container = styled.div`
   width: 100vw;

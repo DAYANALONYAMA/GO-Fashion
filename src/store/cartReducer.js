@@ -17,17 +17,21 @@ export const cartSlice = createSlice({
       } else {
         state.products.push(action.payload);
       }
+
+      state.totalPrice = 0;
       state.products.forEach((item) => {
-        state.totalPrice += (parseInt(item.quantity) * parseFloat(item.price)).toFixed(2)
+        state.totalPrice += parseInt(item.quantity) * parseFloat(item.price);
       });
     },
     removeItem: (state, action) => {
-      state.products = state.products.filter(
-        (item) => item.id !== action.payload
-      );
+      state.products = state.products.filter((item) => {
+        return item.id !== action.payload.id;
+      });
+
+      state.totalPrice -= parseInt(action.payload.price);
     },
     resetCart: (state) => {
-      state.products = [];
+      // state.products = [];
     },
   },
 });

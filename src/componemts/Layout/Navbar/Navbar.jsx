@@ -12,16 +12,18 @@ import CloseIcon from "@mui/icons-material/Close";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../../store/authReducer";
 import AccountMenu from "./DropdownMenu";
+import SearchBar from "../../SearchBar/SearchBar";
 
 const Navbar = () => {
   const [Toggle, ShowMenu] = useState(false);
   const [activeNav, setActiveNav] = useState("");
   const [open, setOpen] = useState(false);
+  const [showSearch, setShowSearch] = useState(false);
   const [womenCategoryTitle, setWomenCategoryTitle] = useState("femme");
   const [manCategoryTitle, setManCategoryTitle] = useState("homme");
   const [childCategoryTitle, setChildCategoryTitle] = useState("enfant");
   const { user, isAuthenticated } = useSelector((state) => state.auth);
-  const { totalPrice } = useSelector((state) => state.cart);
+  const { totalPrice, products } = useSelector((state) => state.cart);
 
   function handleOpenMenu() {
     document.body.classList.add("ActiveMenu");
@@ -30,7 +32,6 @@ const Navbar = () => {
   function handCloseMenu() {
     document.body.classList.remove("ActiveMenu");
   }
-
   return (
     <>
       <div className="navbar">
@@ -80,7 +81,7 @@ const Navbar = () => {
 
           <div className="right">
             <div className="icons">
-              <SearchIcon />
+              <SearchIcon onClick={() => setShowSearch(true)} />
               {isAuthenticated ? (
                 <AccountMenu />
               ) : (
@@ -92,7 +93,7 @@ const Navbar = () => {
               <FavoriteBorderOutlinedIcon className="ico" />
               <div className="cartIcon" onClick={() => setOpen(!open)}>
                 <ShoppingCartOutlinedIcon />
-                <span>{totalPrice}</span>
+                <span>{products.length}</span>
               </div>
             </div>
           </div>
@@ -103,6 +104,7 @@ const Navbar = () => {
         </div>
         {open && <Cart />}
       </div>
+      {showSearch && <SearchBar setShowSearch={setShowSearch} />}
     </>
   );
 };

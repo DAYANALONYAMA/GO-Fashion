@@ -40,14 +40,13 @@ const Products = () => {
   }, [data?.products?.data]);
   const handleChange = (item) => {
     const arr = new Set();
-    arr.add(item)
-     setSelectedSubCats((prev)=> [...prev,...arr]);
-     
+    arr.add(item);
+    setSelectedSubCats((prev) => [...prev, ...arr]);
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     dispatch(filterProductBySubCategories(selectedSubCats));
-  },[selectedSubCats])
+  }, [selectedSubCats]);
   useEffect(() => {
     setCategory(categoryTitle);
     dispatch(addProducts(productResults()));
@@ -72,42 +71,23 @@ const Products = () => {
   //       : selectedSubCats.filter((item) => item !== value)
   //   );
   // };
-  const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
+  const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
   return (
     <div className="products">
       <div className="left-filter">
         <div className="filterItem">
-          { JSON.stringify(selectedSubCats)}
+          {JSON.stringify(selectedSubCats)}
           <h2>Categories</h2>
           {products?.map((item) =>
             item.sub_categories.map((cat) => (
               <div className="inputItem" key={item.id}>
-                 <Checkbox {...label} onChange={() => handleChange(cat)}/>
-                {/* <input
-                  type="checkbox"
-                  id={cat?.id}
-                  valueIndex={cat?.id}
-                  // onChange={() => {
-                  //   handleChange(cat);
-                  // }} 
-                  onChange={() => handleChange(cat)}
-                />
-                */}
+                <Checkbox {...label} onChange={() => handleChange(cat)} />
+
                 <label htmlFor={cat?.id}>{cat.title}</label>
               </div>
             ))
           )}
-
-          {/* <div className="inputItem">
-            <input type="checkbox" id="4" value={4} />
-            <label htmlFor="1">T-shirt</label>
-          </div>
-
-          <div className="inputItem">
-            <input type="checkbox" id="4" value={4} />
-            <label htmlFor="1">Chemise</label>
-          </div> */}
         </div>
         <Divider light />
         <div className="filterItem">
@@ -118,7 +98,7 @@ const Products = () => {
               aria-label="Temperature"
               defaultValue={30}
               getAriaValueText={(e) => setMaxPrice(e)}
-              color='primary'
+              color="primary"
             />
             <span>{maxPrice}</span>
           </div>

@@ -26,38 +26,48 @@ const Register = () => {
       password: "",
     },
   });
-  const [user, setUser] = useState({})
+  const [user, setUser] = useState({});
   const { isAuthenticated } = useSelector((state) => state.auth);
-  const {data: roles, loading:isRolesLoading, errorRoles} = useGraphQLFetch(GET_ALL_ROLES)
+  const {
+    data: roles,
+    loading: isRolesLoading,
+    errorRoles,
+  } = useGraphQLFetch(GET_ALL_ROLES);
   const [loginMutation, { data, loading, error }] =
     useMutation(REGISTER_MUTATION);
   const dispatch = useDispatch();
   const navigation = useNavigate();
-const findClientRole =()=> {
-  let roleParsed = roles?.customRoles?.data.map((item)=> parseUserRoleResult(item))
-  console.log("roles:", roles);
-  return roleParsed.find((userRole)=>userRole.slug=== USER_ROLE.CLIENT)
-}
+  const findClientRole = () => {
+    let roleParsed = roles?.customRoles?.data.map((item) =>
+      parseUserRoleResult(item)
+    );
+    console.log("roles:", roles);
+    return roleParsed.find((userRole) => userRole.slug === USER_ROLE.CLIENT);
+  };
   // useEffect(()=>{
   //    findClientRole()
   // },[roles])
   const onSubmit = async (data) => {
-    delete data.confirmPassword
-    setUser(data)
-   ;
-    const {data:{register:{ user:userLogged, jwt}}} = await  loginMutation({ variables: {
-      ...data,
-      username: data.email,
-      lastName: data.middleName,
-      isActive: true,
-      // customRole: findClientRole().id,
-    } })
+    delete data.confirmPassword;
+    setUser(data);
+    const {
+      data: {
+        register: { user: userLogged, jwt },
+      },
+    } = await loginMutation({
+      variables: {
+        ...data,
+        username: data.email,
+        lastName: data.middleName,
+        isActive: true,
+        // customRole: findClientRole().id,
+      },
+    });
     console.log("userLogged:", data);
     if (jwt && userLogged) {
-      localStorage.setItem('access_token', jwt)
+      localStorage.setItem("access_token", jwt);
       dispatch(login({ ...userLogged }));
       redirectToHomeScreen();
-      
     }
   };
 
@@ -86,6 +96,7 @@ const findClientRole =()=> {
         <Title>CRÉER UN COMPTE</Title>
         <Form onSubmit={handleSubmit(onSubmit)}>
           <InputField
+            className="input"
             placeholder="nom"
             control={control}
             name="middleName"
@@ -109,7 +120,7 @@ const findClientRole =()=> {
             errors={errors.email}
             labelTextError="Ce champ est requis."
           />
-           <InputField
+          <InputField
             placeholder="Telephone"
             control={control}
             name="telephone"
@@ -150,7 +161,8 @@ const findClientRole =()=> {
 export default Register;
 
 const Container = styled.div`
-  width: 100vw;
+ 
+  width: 100vw
   height: 100vh;
   background: linear-gradient(
       rgba(255, 255, 255, 0.5),
@@ -165,6 +177,10 @@ const Container = styled.div`
 `;
 
 const Wrapper = styled.div`
+  border: 1px solid red;
+  margin-top: 100px;
+
+  height: 40%;
   width: 40%;
   padding: 20px;
   background-color: white;

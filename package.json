@@ -8,6 +8,7 @@
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
     "@material-ui/icons": "^4.11.3",
+    "@meilisearch/instant-meilisearch": "^0.13.0",
     "@mui/icons-material": "^5.11.16",
     "@mui/material": "^5.11.16",
     "@reduxjs/toolkit": "^1.9.5",
@@ -21,6 +22,8 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-hook-form": "^7.43.9",
+    "react-id-swiper": "^4.0.0",
+    "react-instantsearch-dom": "^6.40.0",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.10.0",
     "react-scripts": "^5.0.1",
@@ -28,6 +31,7 @@
     "redux-persist": "^6.0.0",
     "sass": "^1.61.0",
     "styled-components": "^5.3.9",
+    "swiper": "^9.3.2",
     "web-vitals": "^1.0.1"
   },
   "scripts": {
