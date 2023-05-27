@@ -77,7 +77,6 @@ const Products = () => {
     <div className="products">
       <div className="left-filter">
         <div className="filterItem">
-          {JSON.stringify(selectedSubCats)}
           <h2>Categories</h2>
           {products?.map((item) =>
             item.sub_categories.map((cat) => (

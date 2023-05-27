@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { removeItem, resetCart } from "../../store/cartReducer";
 import { useDispatch } from "react-redux";
 import { makeRequest } from "../../config/config";
-
+import { Link } from "react-router-dom";
 const Cart = () => {
   const { products, totalPrice } = useSelector((state) => state.cart);
 
@@ -21,7 +21,7 @@ const Cart = () => {
       <h1>Mon pannier</h1>
       {products?.map((item) => (
         <div className="item" key={item.id}>
-          <img src={process.env.REACT_APP_UPLOAD_URL + item.img} alt="" />
+          <img src={item.img} alt="" />
           <div className="details">
             <h1>{item.title} </h1>
             <p>{item.desc?.substring(0, 100)} </p>
@@ -39,7 +39,9 @@ const Cart = () => {
         <span>Valeur de la commande</span>
         <span>{totalPrice}</span>
       </div>
-      <button>PROCEED TO CHECKOUT</button>
+      <Link className="link" to="signin">
+        <button>Finaliser ma commande</button>
+      </Link>
       <span className="reset" onClick={() => dispatch(resetCart(products))}>
         RESET Cart
       </span>

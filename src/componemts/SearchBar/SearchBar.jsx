@@ -36,22 +36,26 @@ const SearchBar = ({ setShowSearch }) => {
 
   return (
     <div className="search-modal">
-      <div className="form-field">
-        <InstantSearch indexName="product" searchClient={searchClient}>
-          <SearchBox />
-          <Hits hitComponent={Hit} />
-        </InstantSearch>
+      <InstantSearch indexName="product" searchClient={searchClient}>
+        <div className="form-field">
+          {/* <InstantSearch indexName="product" searchClient={searchClient}> */}
+          <SearchBox className="inpuSerch" />
 
-        <CloseIcon
-          onClick={() => setShowSearch(false)}
-          className=".close-btn"
-        />
-      </div>
-      <div className="content-result">
-        <div className="search-results">
-          <div className="search-result-item">{Hits}</div>
+          {/* </InstantSearch> */}
+
+          <CloseIcon
+            onClick={() => setShowSearch(false)}
+            className=".close-btn"
+          />
         </div>
-      </div>
+        <div className="content-result">
+          <div className="search-results">
+            <div className="search-result-item">
+              <Hits hitComponent={Hit} />
+            </div>
+          </div>
+        </div>
+      </InstantSearch>
     </div>
   );
 };

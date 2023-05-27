@@ -1,5 +1,6 @@
 import { Container, Box, Grid } from "@mui/material";
 import React from "react";
+import "./shop.css";
 import Card from "../../componemts/Card/Card";
 import { useGraphQLFetch } from "../../hooks/useGraphQLFetch";
 import { FILTER_PRODUCT_BY_TYPE_QUERY } from "../../graphql/product/filter-product-by-type";
@@ -79,7 +80,13 @@ const Shop = () => {
           )}
         </div>
       </div>
+
       <Grid container spacing={1}>
+        {/* <img
+          className="catImgShop"
+          src="https://res.cloudinary.com/dhm9nicld/image/upload/v1668414926/samples/ecommerce/accessories-bag.jpg"
+          alt=""
+        /> */}
         <Grid item xs={12} sm={6} md={3}></Grid>
         {loading ? (
           <Grid container spacing={1}>

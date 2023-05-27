@@ -90,7 +90,7 @@ const Navbar = () => {
                 </Link>
               )}
 
-              <FavoriteBorderOutlinedIcon className="ico" />
+              {/* <FavoriteBorderOutlinedIcon className="ico" /> */}
               <div className="cartIcon" onClick={() => setOpen(!open)}>
                 <ShoppingCartOutlinedIcon />
                 <span>{products.length}</span>

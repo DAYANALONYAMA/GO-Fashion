@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import Select from "react-select";
 import BalanceIcon from "@mui/icons-material/Balance";
 import "./Product.scss";
 import { useParams } from "react-router-dom";
@@ -14,9 +15,18 @@ const Product = () => {
   const id = useParams().id;
   const [selectedImg, setSelectedImg] = useState("img");
   const [quantity, setQuantity] = useState(1);
-
+  // const [size, setSize] = useState("S");
+  // const [color, Setcolor] = useState("vert");
   const dispatch = useDispatch();
   const { data, loading, error } = useFetch(`/products/${id}?populate=*`);
+
+  // const handleSizeChange = (event) => {
+  //   setSize(event.target.value);
+  // };
+
+  // const handleColorChange = (event) => {
+  //   Setcolor(event.target.value);
+  // };
 
   // const images = [
   //   "https://res.cloudinary.com/dhm9nicld/image/upload/v1668414921/samples/ecommerce/shoes.png ",
@@ -26,36 +36,24 @@ const Product = () => {
   return (
     <div className="product">
       {loading ? (
-     <CustomOverlay isLoading={loading}/>
+        <CustomOverlay isLoading={loading} />
       ) : (
         <>
           <div className="left">
             <div className="images">
               <img
-                src={
-                  process.env.REACT_APP_UPLOAD_URL +
-                  data?.attributes?.img?.data?.attributes?.url
-                }
+                src={data?.attributes?.img}
                 alt=""
                 onClick={(e) => setSelectedImg("img")}
               />
               <img
-                src={
-                  process.env.REACT_APP_UPLOAD_URL +
-                  data?.attributes?.img2?.data?.attributes?.url
-                }
+                src={data?.attributes?.img2}
                 alt=""
                 onClick={(e) => setSelectedImg("img2")}
               />
             </div>
             <div className="mainImg">
-              <img
-                src={
-                  process.env.REACT_APP_UPLOAD_URL +
-                  data?.attributes[selectedImg]?.data?.attributes?.url
-                }
-                alt=""
-              />
+              <img src={data?.attributes[selectedImg]} alt="" />
             </div>
           </div>
           <div className="right">
@@ -93,7 +91,11 @@ const Product = () => {
             </button>
             <div className="link">
               <div className="item">
-                <FavoriteBorderIcon />
+                {/* <FavoriteBorderIcon /> */}
+                <select name="Size">
+                  <option value="S">S</option>
+                  <option value="M">M</option>
+                </select>
               </div>
             </div>
 
